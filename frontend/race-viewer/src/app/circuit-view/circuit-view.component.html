@@ -1,0 +1,83 @@
+<mat-card>
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" #input>
+    </mat-form-field>
+
+    <div style="display: flex;">
+        <div [ngClass]="showDetail ? 'showDetail' : 'doNotShowDetail'">
+            <table mat-table [dataSource]="circuitDataSource" class="table">
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let circuit"> {{circuit.name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="country">
+                    <th mat-header-cell *matHeaderCellDef> Country </th>
+                    <td mat-cell *matCellDef="let circuit"> {{circuit.country}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="location">
+                    <th mat-header-cell *matHeaderCellDef> Location </th>
+                    <td mat-cell *matCellDef="let circuit"> {{circuit.location}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="circuitDisplayedColumns"></tr>
+                <tr mat-row (click)="tableRowSelected(row)" *matRowDef="let row; columns: circuitDisplayedColumns;">
+                </tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
+
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of circuits"></mat-paginator>
+
+            <p style="text-align: center; color: grey;">Click row for details</p>
+        </div>
+
+        <mat-card *ngIf="showDetail" appearance="outlined" [ngStyle]="{ 'width': showDetail ? '50%' : '0%'}"
+            class="detailCard">
+            <mat-card-header>
+                <h2>{{selectedCircuit.name}}</h2>
+            </mat-card-header>
+
+            <mat-card-content>
+                <p>Country: {{selectedCircuit.country}}</p>
+                <p>Location: {{selectedCircuit.location}}</p>
+                <p>Races: {{selectedCircuit.races}}</p>
+                <p>URL: <a href="{{selectedCircuit.url}}">Wiki</a></p>
+            </mat-card-content>
+
+            <mat-card-header>Top 5 Laps</mat-card-header>
+            <table mat-table [dataSource]="lapsDataSource" class="table">
+                <ng-container matColumnDef="driver">
+                    <th mat-header-cell *matHeaderCellDef> Driver </th>
+                    <td mat-cell *matCellDef="let lap"> {{lap.driver}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="time">
+                    <th mat-header-cell *matHeaderCellDef> Time </th>
+                    <td mat-cell *matCellDef="let lap"> {{lap.time}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="year">
+                    <th mat-header-cell *matHeaderCellDef> Year </th>
+                    <td mat-cell *matCellDef="let lap"> {{lap.year}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="lapsDisplayedColumns"></tr>
+                <tr mat-row (click)="tableRowSelected(row)" *matRowDef="let row; columns: lapsDisplayedColumns;"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" style="text-align: center;" colspan="4">No data available</td>
+                </tr>
+
+            </table>
+
+        </mat-card>
+
+    </div>
+
+</mat-card>
