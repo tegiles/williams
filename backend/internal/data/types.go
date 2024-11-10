@@ -13,16 +13,6 @@ type CircuitJSON struct {
 	Code      string  `json:"countryCode"`
 }
 
-type StandingJSON struct {
-	StandingID   int64   `json:"driverStandingsId"`
-	RaceID       int64   `json:"raceId"`
-	DriverID     int64   `json:"driverId"`
-	Points       float64 `json:"points"`
-	Position     int64   `json:"position"`
-	PositionText int64   `json:"positionText"`
-	Wins         int64   `json:"wins"`
-}
-
 type DriverJSON struct {
 	DriverID    int64  `json:"driverId"`
 	DriverRef   string `json:"driverRef"`
@@ -63,9 +53,4 @@ type RaceJSON struct {
 	QualiTime  string `json:"quali_time"`
 	SprintDate string `json:"sprint_date"`
 	SprintTime string `json:"sprint_time"`
-}
-
-type CountryJSON struct {
-	Name string `json:"name"`
-	Code string `json:"country-code"`
 }

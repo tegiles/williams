@@ -65,25 +65,3 @@ func (w *WilliamsService) GetCircuitDetails(write http.ResponseWriter, req *http
 		}
 	}
 }
-
-func (w *WilliamsService) GetStandingsForDriver(write http.ResponseWriter, req *http.Request) {
-	driverIDString := req.PathValue("driverID")
-	driverID, err := strconv.Atoi(driverIDString)
-	if err != nil {
-		fmt.Printf("Error getting driverID from request: %s", err.Error())
-		write.WriteHeader(501)
-		return
-	}
-	for _, standing := range w.Standings {
-		if standing.DriverID == int64(driverID) {
-			response := standing
-
-			data, err := json.Marshal(response)
-			if err != nil {
-				write.WriteHeader(500)
-				return
-			}
-			write.Write(data)
-		}
-	}
-}

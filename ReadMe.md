@@ -27,4 +27,4 @@ The frontend of the race viewer is an Angular frontend component. It offers two 
 
 ### Requirements
 
-Angular Installation: https://v17.angular.io/guide/setup-local
+Angular Installation: https://angular.dev/tools/cli/setup-local
